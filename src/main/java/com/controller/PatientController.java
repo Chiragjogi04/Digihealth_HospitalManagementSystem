@@ -33,7 +33,6 @@ public class PatientController {
     @Autowired
     private AppointmentService appointmentService;
 
-    // 1. View patient profile
     @RequestMapping("/showPatient")
     public ModelAndView showPatientController(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
@@ -51,13 +50,11 @@ public class PatientController {
         return modelAndView;
     }
 
-    // 2. Request appointment
     @RequestMapping("/requestAppointment")
     public ModelAndView requestAppointmentController() {
         return new ModelAndView("requestAppointmentPage");
     }
 
-    // 2.1 Generate appointment
     @RequestMapping("/generateAppointment")
     public ModelAndView generateAppointmentController(HttpServletRequest request, HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
@@ -94,7 +91,6 @@ public class PatientController {
                 .collect(Collectors.toList());
     }
 
-    // 2.2 Book appointment
     @RequestMapping("/bookAppointment")
     public ModelAndView bookAppointmentController(@ModelAttribute("command2") Schedule schedule, HttpSession session, BindingResult bindingResult) {
         ModelAndView modelAndView = new ModelAndView();
@@ -131,7 +127,6 @@ public class PatientController {
         return modelAndView;
     }
 
-    // 3. Cancel appointment - Show list
     @RequestMapping("/cancelAppointment")
     public ModelAndView cancelAppointmentController(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
@@ -150,7 +145,6 @@ public class PatientController {
         return modelAndView;
     }
 
-    // 3.1 Cancel selected appointment
     @RequestMapping("/deleteAppointment")
     public ModelAndView deleteAppointmentController(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
@@ -177,7 +171,6 @@ public class PatientController {
         return modelAndView;
     }
 
-    // 4. View all appointments
     @RequestMapping("/viewAllAppointments")
     public ModelAndView viewAllAppointmentsController(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
@@ -196,7 +189,6 @@ public class PatientController {
         return modelAndView;
     }
 
-    // 5. Reschedule appointment - Show list
     @RequestMapping("/rescheduleAppointment")
     public ModelAndView rescheduleAppointmentController(HttpSession session) {
         ModelAndView modelAndView = new ModelAndView();
@@ -215,7 +207,6 @@ public class PatientController {
         return modelAndView;
     }
 
-    // 5.1 Reschedule to new date
     @RequestMapping("/rescheduleAppointmentTo")
     public ModelAndView rescheduleAppointmentToController(HttpServletRequest request) {
         ModelAndView modelAndView = new ModelAndView();
