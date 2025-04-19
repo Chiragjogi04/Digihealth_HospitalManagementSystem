@@ -121,7 +121,6 @@
             <p>Set your available time slots for patient appointments</p>
         </div>
 
-        <!-- Current Schedule Table -->
         <h3>Current Schedule</h3>
         <table class="schedule-table">
             <thead>
@@ -149,7 +148,6 @@
             </tbody>
         </table>
 
-        <!-- Add New Schedule Form -->
         <div class="schedule-form">
             <h3>Add New Schedule</h3>
             <form th:action="@{/doctor/add-schedule}" method="post">
@@ -184,7 +182,6 @@
     </div>
 
     <script>
-        // Validate end time is after start time
         document.querySelector('form').addEventListener('submit', function(e) {
             const startTime = document.getElementById('slotStart').value;
             const endTime = document.getElementById('slotEnd').value;
