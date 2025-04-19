@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DigiHealth - Add Schedule</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #c8e6c9);
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.7s ease;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: #2e7d32;
+    }
+
+    select,
+    input[type="time"] {
+      width: 100%;
+      padding: 0.8rem;
+      font-size: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      margin-top: 0.5rem;
+    }
+
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 1.5rem;
+    }
+
+    button {
+      padding: 0.8rem 2rem;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background-color: #2e7d32;
+      color: white;
+    }
+
+    .btn-secondary {
+      background-color: #e0e0e0;
+      color: #555;
+    }
+
+    .btn-primary:hover {
+      background-color: #1b5e20;
+    }
+
+    .btn-secondary:hover {
+      background-color: #c8c8c8;
+    }
+
+    .alert {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .alert-success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .alert-danger {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .navigation-links {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .link, .back-button {
+      color: #2e7d32;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0 0.5rem;
+    }
+
+    .link:hover, .back-button:hover {
+      text-decoration: underline;
+    }
+
+    .back-button {
+      background-color: #e0e0e0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1><i class="fas fa-calendar-plus me-2"></i>Add New Schedule</h1>
+
+      <form action="/saveSchedule" method="post">
+        <div class="form-group">
+          <label for="availableDay">Available Day</label>
+          <select id="availableDay" name="availableDay" required>
+            <option value="">Select day</option>
+            <option value="Monday">Monday</option>
+            <option value="Tuesday">Tuesday</option>
+            <option value="Wednesday">Wednesday</option>
+            <option value="Thursday">Thursday</option>
+            <option value="Friday">Friday</option>
+            <option value="Saturday">Saturday</option>
+            <option value="Sunday">Sunday</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="slotStart">Start Time</label>
+          <input type="time" id="slotStart" name="slotStart" required />
+        </div>
+
+        <div class="form-group">
+          <label for="slotEnd">End Time</label>
+          <input type="time" id="slotEnd" name="slotEnd" required />
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="btn btn-primary">Add Schedule</button>
+          <button type="reset" class="btn btn-secondary">Reset</button>
+        </div>
+      </form>
+
+      <div th:if="${message}" class="alert" th:classappend="${messageType == 'success'} ? 'alert-success' : 'alert-danger'" th:text="${message}"></div>
+
+      <div class="navigation-links">
+        <button onclick="history.back()" class="back-button">
+          <i class="fas fa-arrow-left"></i> Go Back
+        </button>
+        <a href="./" class="link">
+          <i class="fas fa-home"></i> Return to Main Page
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

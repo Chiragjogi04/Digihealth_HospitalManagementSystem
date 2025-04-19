@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DigiHealth - Patient Profile</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f2f6fc;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 50px auto;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      padding: 2rem;
+      animation: fadeIn 1s ease;
+    }
+
+    .card h1 {
+      text-align: center;
+      color: #007bff;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .table-responsive {
+      margin-top: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    table thead {
+      background-color: #007bff;
+      color: white;
+    }
+
+    table th, table td {
+      padding: 0.75rem;
+      text-align: center;
+      border: 1px solid #dee2e6;
+    }
+
+    table tbody tr:hover {
+      background-color: #f1f9ff;
+      transition: background-color 0.3s ease;
+    }
+
+    .navigation-links {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+    }
+
+    .back-button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 5px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    .back-button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    .link {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    .link:hover {
+      color: #0056b3;
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1><i class="fas fa-user-injured"></i> Patient Profile</h1>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Patient ID</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Contact No.</th>
+              <th>Symptoms</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td th:text="${patient.patientId}"></td>
+              <td th:text="${patient.patientName}"></td>
+              <td th:text="${patient.patientGender}"></td>
+              <td th:text="${patient.patientAge}"></td>
+              <td th:text="${patient.patientContact}"></td>
+              <td th:text="${patient.patientSymptoms}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="navigation-links">
+        <button onclick="history.back()" class="back-button"><i class="fas fa-arrow-left"></i> Go Back</button>
+        <a href="/" class="link">Return to Main Page <i class="fas fa-home"></i></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

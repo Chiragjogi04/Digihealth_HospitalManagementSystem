@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DigiHealth - Remove Patient</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #ffe0b2);
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      margin-bottom: 2rem;
+      animation: fadeIn 0.7s ease;
+    }
+
+    h1, h2 {
+      text-align: center;
+      color: #ef6c00;
+      margin-bottom: 1.5rem;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #ef6c00;
+      color: white;
+      padding: 1rem;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+      background-color: #fff3e0;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    select {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    .btn-danger {
+      background-color: #d32f2f;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .btn-danger:hover {
+      background-color: #b71c1c;
+    }
+
+    .button-group {
+      text-align: center;
+    }
+
+    .navigation-links {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-top: 2rem;
+    }
+
+    .back-button, .link {
+      color: #ef6c00;
+      background: none;
+      border: none;
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+    }
+
+    .back-button:hover, .link:hover {
+      color: #bf360c;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navigation-links {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1><i class="fas fa-notes-medical me-2"></i>Patient Records</h1>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Patient ID</th>
+              <th>Name</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Contact No.</th>
+              <th>Symptoms</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="patientList : ${patientList}">
+              <td th:text="${patientList.patientId}"></td>
+              <td th:text="${patientList.patientName}"></td>
+              <td th:text="${patientList.patientGender}"></td>
+              <td th:text="${patientList.patientAge}"></td>
+              <td th:text="${patientList.patientContact}"></td>
+              <td th:text="${patientList.patientSymptoms}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><i class="fas fa-user-minus me-2"></i>Remove Patient</h2>
+      <form action="#" method="post" th:object="${command}" th:action="@{./removePatientMessage}">
+        <div class="form-group">
+          <label for="patientId">Select Patient ID</label>
+          <select id="patientId" th:field="*{patientId}" required>
+            <option value="">Choose a patient ID</option>
+            <option th:each="id : ${patientIds}" th:value="${id}" th:text="${id}"></option>
+          </select>
+        </div>
+        <div class="button-group">
+          <button type="submit" class="btn btn-danger">
+            <i class="fas fa-trash me-1"></i>Delete Patient
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="navigation-links">
+      <button onclick="history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i> Go Back
+      </button>
+      <a href="./" class="link">
+        <i class="fas fa-home"></i> Return to Main Page
+      </a>
+    </div>
+  </div>
+</body>
+</html>

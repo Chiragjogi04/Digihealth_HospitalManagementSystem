@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DigiHealth - All Doctors</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #80deea);
+      margin: 0;
+      padding: 2rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(8px);
+      animation: fadeInUp 0.8s ease;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: white;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: linear-gradient(135deg, #00acc1, #007c91);
+      color: white;
+    }
+
+    th, td {
+      padding: 1rem;
+      text-align: left;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    th {
+      font-weight: 600;
+    }
+
+    .navigation-links {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .back-button,
+    .link {
+      background: none;
+      border: none;
+      color: #007c91;
+      font-weight: 600;
+      text-decoration: underline;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      transition: color 0.3s ease;
+    }
+
+    .back-button:hover,
+    .link:hover {
+      color: #004d5c;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      th, td {
+        font-size: 0.9rem;
+        padding: 0.75rem;
+      }
+
+      .navigation-links {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1><i class="fas fa-user-md me-2"></i>Doctor Directory</h1>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Doctor ID</th>
+              <th>Name</th>
+              <th>Specialization</th>
+              <th>Experience</th>
+              <th>Gender</th>
+              <th>Age</th>
+              <th>Contact</th>
+              <th>Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="doctorList : ${doctorList}">
+              <td th:text="${doctorList.doctorId}"></td>
+              <td th:text="${doctorList.doctorName}"></td>
+              <td th:text="${doctorList.doctorDepartment}"></td>
+              <td th:text="${doctorList.doctorExperience} + ' yrs'"></td>
+              <td th:text="${doctorList.doctorGender == 'm' ? 'Male' : 'Female'}"></td>
+              <td th:text="${doctorList.doctorAge}"></td>
+              <td th:text="${doctorList.doctorContact}"></td>
+              <td th:text="${doctorList.doctorAddress}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="navigation-links">
+        <button onclick="history.back()" class="back-button">
+          <i class="fas fa-arrow-left me-1"></i>Go Back
+        </button>
+        <a href="./" class="link">
+          <i class="fas fa-home me-1"></i>Return to Main Page
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

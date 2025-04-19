@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DigiHealth | Healthcare Appointment System</title>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      scroll-behavior: smooth;
+    }
+
+    .hero {
+      background: url('/images/doctor_bg.jpg') center/cover no-repeat;
+      height: 100vh;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 1rem;
+    }
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    .hero-content p {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .action-buttons .btn {
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .action-buttons .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    #floatingPatientInput {
+      position: fixed;
+      top: 20%;
+      right: 2%;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      max-width: 320px;
+      display: none;
+      z-index: 1050;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    #floatingPatientInput.show {
+      display: block;
+    }
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    #patientDetails {
+      display: none;
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+
+    .icons-section {
+      padding: 3rem 0;
+      background: #f8f9fa;
+    }
+    .icons-section .card {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .icons-section .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+    }
+    .icons-section .card i {
+      font-size: 3rem;
+      color: #007bff;
+    }
+
+    .services {
+      background: #e6f2ff;
+      padding: 3rem 0;
+    }
+    .services .feature-item {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+
+    .about {
+      text-align: center;
+      background: #f9f9f9;
+      padding: 4rem 1rem;
+      animation: fadeIn 0.8s ease-in-out;
+    }
+    .about h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .about p {
+      max-width: 800px;
+      margin: 0 auto;
+      font-size: 1.15rem;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .terms {
+      padding: 2rem;
+      background: #f1f1f1;
+      color: #333;
+      font-size: 0.95rem;
+    }
+    .terms h4 {
+      margin-bottom: 1rem;
+    }
+
+    .footer-message {
+      text-align: center;
+      padding: 1rem;
+      background: #f1f1f1;
+      color: #6c757d;
+    }
+
+    @media (max-width: 768px) {
+      .hero-content h1 { font-size: 2.25rem; }
+      .hero-content p  { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <div class="hero-content container">
+      <h1><i class="fas fa-hospital-alt"></i> Welcome to DigiHealth</h1>
+      <p class="lead">Providing quality healthcare services with efficient management</p>
+      <div class="action-buttons">
+        <a href="/beforeLogin" class="btn btn-outline-light btn-lg mb-2">
+          <i class="fas fa-sign-in-alt"></i> Login
+        </a><br/>
+        <button class="btn btn-outline-light btn-lg" onclick="togglePatientInput()">
+          <i class="fas fa-info-circle"></i> View Patient Info
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <div id="floatingPatientInput" class="shadow-lg">
+    <h5><i class="fas fa-user-circle"></i> Patient Lookup</h5>
+    <div class="input-group mt-3">
+      <input type="text" id="patientId" class="form-control" placeholder="Enter Patient ID">
+      <div class="input-group-append">
+        <button class="btn btn-primary" onclick="getPatientDetails()">
+          <i class="fas fa-search"></i> Enter ID
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <section id="patientDetails" class="container"></section>
+
+  <section class="icons-section container">
+    <div class="row text-center">
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card p-3">
+          <i class="fas fa-user-md"></i>
+          <h5 class="mt-2">Doctors</h5>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card p-3">
+          <i class="fas fa-user-injured"></i>
+          <h5 class="mt-2">Patients</h5>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card p-3">
+          <i class="fas fa-calendar-check"></i>
+          <h5 class="mt-2">Appointments</h5>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 mb-4">
+        <div class="card p-3">
+          <i class="fas fa-notes-medical"></i>
+          <h5 class="mt-2">Records</h5>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="services container">
+    <h2 class="text-center mb-4"><i class="fas fa-star"></i> Our Services</h2>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="feature-item"><i class="fas fa-check-circle mr-2 text-success"></i> Online appointment scheduling</div>
+        <div class="feature-item"><i class="fas fa-check-circle mr-2 text-success"></i> Digital patient records management</div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-item"><i class="fas fa-check-circle mr-2 text-success"></i> Doctor availability tracking</div>
+        <div class="feature-item"><i class="fas fa-check-circle mr-2 text-success"></i> Secure patient-doctor communication</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about">
+    <h2><i class="fas fa-heartbeat text-danger"></i> About DigiHealth</h2>
+    <p>DigiHealth is a comprehensive web-based healthcare appointment and record system designed to streamline patient-doctor interactions. From managing appointments and medical history to enabling secure messaging, DigiHealth aims to simplify healthcare for both providers and patients. Our vision is to digitize and modernize hospital systems with a human touch.</p>
+  </section>
+
+  <footer class="footer-message">
+    <p><i class="fas fa-heartbeat"></i> Caring for your health, managing your care <i class="fas fa-heartbeat"></i></p>
+    <a class="/terms-and-conditions">Read Terms & Conditions</a>
+  </footer>
+
+  <script>
+    function togglePatientInput() {
+      document.getElementById("floatingPatientInput").classList.toggle("show");
+    }
+
+    function getPatientDetails() {
+      const patientId = document.getElementById("patientId").value.trim();
+      if (!patientId) {
+        alert("Please enter your Patient ID.");
+        return;
+      }
+
+      fetch("/getPatientDetails?pid=" + encodeURIComponent(patientId))
+        .then(response => {
+          if (!response.ok) throw new Error("Failed to fetch");
+          return response.json();
+        })
+        .then(data => {
+          const detailsEl = document.getElementById("patientDetails");
+          let html = `<div class="card"><div class="card-header bg-primary text-white">Patient Details</div><div class="card-body">`;
+          html += `<p><strong>Name:</strong> ${data.patientName || 'N/A'}</p>`;
+          html += `<p><strong>Age:</strong> ${data.age || 'N/A'}</p>`;
+          html += `<p><strong>Contact:</strong> ${data.contact || 'N/A'}</p>`;
+          if (data.appointments?.length) {
+            html += `<h5 class="mt-4">Appointments</h5><ul>`;
+            data.appointments.forEach(app => {
+              html += `<li>${app.date} - ${app.slot} with Dr. ${app.doctorName}</li>`;
+            });
+            html += `</ul>`;
+          } else {
+            html += `<p>No appointments found.</p>`;
+          }
+          html += `</div></div>`;
+          detailsEl.innerHTML = html;
+          detailsEl.style.display = 'block';
+        })
+        .catch(() => {
+          alert("Invalid Patient ID or network issue.");
+        });
+    }
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

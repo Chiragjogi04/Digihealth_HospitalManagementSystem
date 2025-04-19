@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DigiHealth - My Schedules</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #f8f9fa, #c8e6c9);
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 0.7s ease;
+    }
+
+    h1 {
+      text-align: center;
+      color: #2e7d32;
+      margin-bottom: 1.5rem;
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th {
+      background: #2e7d32;
+      color: white;
+      padding: 1rem;
+    }
+
+    td {
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+      background-color: #f1f8e9;
+    }
+
+    .navigation-links {
+      text-align: center;
+      margin-top: 2rem;
+    }
+
+    .link, .back-button {
+      color: #2e7d32;
+      font-weight: 600;
+      text-decoration: none;
+      padding: 0.5rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      margin: 0 0.5rem;
+    }
+
+    .link:hover, .back-button:hover {
+      text-decoration: underline;
+    }
+
+    .back-button {
+      background-color: #e0e0e0;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1><i class="fas fa-calendar-day me-2"></i>My Schedule</h1>
+
+      <div class="table-responsive">
+        <table>
+          <thead>
+            <tr>
+              <th>Doctor ID</th>
+              <th>Name</th>
+              <th>Available Day</th>
+              <th>Slot Start</th>
+              <th>Slot End</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:each="schedule : ${schedules}">
+              <td th:text="${schedule.doctorId}"></td>
+              <td th:text="${schedule.nameOfDoctor}"></td>
+              <td th:text="${schedule.availableDay}"></td>
+              <td th:text="${schedule.slotStart}"></td>
+              <td th:text="${schedule.slotEnd}"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="navigation-links">
+        <button onclick="history.back()" class="back-button">
+          <i class="fas fa-arrow-left"></i> Go Back
+        </button>
+        <a href="./" class="link">
+          <i class="fas fa-home"></i> Return to Main Page
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

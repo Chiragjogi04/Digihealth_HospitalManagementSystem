@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DigiHealth – Login Selection</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      overflow: hidden;
+      background: linear-gradient(-45deg, #74abe2, #83c6d0, #ff9a9e, #fad0c4);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+    @keyframes gradientBG {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .bubble {
+      position: absolute;
+      background: rgba(255,255,255,0.2);
+      border-radius: 50%;
+      animation: rise 12s infinite ease-in;
+      bottom: -150px;
+    }
+    @keyframes rise {
+      to {
+        transform: translateY(-120vh) scale(1.3);
+        opacity: 0;
+      }
+    }
+    .bubble:nth-child(1) { width: 80px;  height: 80px;  left: 10%;  animation-duration: 14s; }
+    .bubble:nth-child(2) { width: 120px; height: 120px; left: 60%;  animation-duration: 18s; }
+    .bubble:nth-child(3) { width: 50px;  height: 50px;  left: 35%;  animation-duration: 16s; }
+    .bubble:nth-child(4) { width: 100px; height: 100px; left: 80%;  animation-duration: 20s; }
+    .bubble:nth-child(5) { width: 60px;  height: 60px;  left: 25%;  animation-duration: 17s; }
+    .selection-container {
+      position: relative;
+      width: 100%;
+      max-width: 600px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(31,38,135,0.37);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.18);
+      overflow: hidden;
+      z-index: 1;
+      animation: fadeIn 1s ease;
+      text-align: center;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .selection-header {
+      background: linear-gradient(135deg, #3498db, #2980b9);
+      color: white;
+      padding: 2rem 1.5rem;
+    }
+    .selection-header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .selection-header h1 i { margin-right: 0.5rem; }
+    .selection-header p {
+      margin: 0.5rem 0 0;
+      font-size: 1rem;
+      opacity: 0.9;
+    }
+    .roles {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem 1rem;
+      gap: 1rem;
+    }
+    .role-card {
+      background: rgba(255,255,255,0.85);
+      border-radius: 12px;
+      width: 150px;
+      padding: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .role-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
+    .role-card i {
+      font-size: 2rem;
+      color: #2980b9;
+      margin-bottom: 0.5rem;
+    }
+    .role-card p {
+      margin: 0;
+      font-weight: 600;
+      color: #2c3e50;
+    }
+    .selection-footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 1.5rem 2rem;
+      font-size: 0.9rem;
+      background: rgba(255,255,255,0.15);
+    }
+    .back-button {
+      background: rgba(255,255,255,0.6);
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .back-button:hover { background: rgba(255,255,255,0.9) }
+    .link {
+      color: #3498db;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    .link:hover { color: #2471a3 }
+  </style>
+</head>
+<body>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+
+  <div class="selection-container">
+    <div class="selection-header">
+      <h1><i class="fas fa-hospital-alt"></i>DigiHealth</h1>
+      <p id="greeting">Welcome!</p>
+    </div>
+
+    <div class="roles">
+      <div class="role-card" onclick="location.href='/login?role=receptionist'">
+        <i class="fas fa-user-edit"></i>
+        <p>Receptionist</p>
+      </div>
+      <div class="role-card" onclick="location.href='/login?role=doctor'">
+        <i class="fas fa-user-md"></i>
+        <p>Doctor</p>
+      </div>
+      <div class="role-card" onclick="location.href='/login?role=admin'">
+        <i class="fas fa-user-shield"></i>
+        <p>Admin</p>
+      </div>
+    </div>
+
+    <div class="selection-footer">
+      <button onclick="history.back()" class="back-button">
+        <i class="fas fa-arrow-left"></i> Go Back
+      </button>
+      <a href="./" class="link">
+        <i class="fas fa-home"></i> Main Page
+      </a>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const h = new Date().getHours();
+      const greet = h < 12 ? 'Good Morning' : h < 18 ? 'Good Afternoon' : 'Good Evening';
+      document.getElementById('greeting').textContent = greet + ', please select your role.';
+    })();
+  </script>
+</body>
+</html>
