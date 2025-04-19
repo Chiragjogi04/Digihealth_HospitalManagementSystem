@@ -1,10 +1,8 @@
-# DigiHealth Application
-
-A Spring Boot application for managing hospital appointments and users.
+# DigiHealth - Hospital Management System
 
 ---
 
-## 🚀 How to Run the Project
+##  How to Run the Project
 
 1. **Set up database credentials**  
    Open `src/main/resources/application.properties` and update:
