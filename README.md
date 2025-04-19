@@ -13,3 +13,4 @@
    Open `src/main/resources/hospital.sql' and
     run its contents in your MySQL client to create the database.
 3. **Start your MySQL server**
+   
