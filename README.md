@@ -25,6 +25,8 @@
    ```properties
        mvn spring-boot:run
 6. **Open the browser**
+
+
    Go to:
    ```properties
        http://localhost:8080
