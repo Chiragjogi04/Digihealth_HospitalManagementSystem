@@ -55,7 +55,6 @@ public class ValidationController {
 	}
 	
 	
-//  Registering Patient--------------------------------------------------------------------------------------------------------------------------------------
 	
 	@RequestMapping("/inputDetailsToRegisterPatient")
 	public ModelAndView inputDetailsToRegisterPatientController(HttpServletRequest request, HttpSession session) {
