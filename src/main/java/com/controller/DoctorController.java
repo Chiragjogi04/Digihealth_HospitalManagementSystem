@@ -24,7 +24,6 @@ public class DoctorController {
 	@Autowired
 	private PatientService patientService;
 	
-//Doctor Functionalities Start ---------------------------------------------------------------------------------------------------------------------
 	
 	@RequestMapping("/viewPatientEnterId")
 	public ModelAndView viewPatientEnterIdController() {
