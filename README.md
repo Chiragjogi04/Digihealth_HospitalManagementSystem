@@ -1,4 +1,4 @@
-# Healthcare Appointment System - Fixes
+# DigiHealth-Hospital Management System
 
 ## Issues Fixed
 
