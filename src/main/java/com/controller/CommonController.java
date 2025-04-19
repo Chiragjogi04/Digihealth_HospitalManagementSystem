@@ -30,7 +30,6 @@ public class CommonController {
     @Autowired
     private AppointmentService appointmentService;
 
-    // New: service for our API
     @Autowired
     private PatientService patientService;
 
@@ -54,7 +53,6 @@ public class CommonController {
         return new ModelAndView("login");
     }
 
-    // --- New JSON endpoint for front-end fetch() ---
     @GetMapping("/getPatientDetails")
     @ResponseBody
     public PatientDetailsResponse getPatientDetails(@RequestParam("pid") String pid) {
