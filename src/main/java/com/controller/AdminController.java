@@ -21,10 +21,6 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-//  Admin Functionalities Start--------------------------------------------------------------------------------------------------------------------------
-
-	
-//  Add Doctor
 	@RequestMapping("/addDoctor")
 	public ModelAndView addDoctorController() {
 		return new ModelAndView("addDoctor");
@@ -38,7 +34,6 @@ public class AdminController {
 			System.out.println("Starting doctor registration process in controller...");
 			Doctor doctor = new Doctor();
 			
-			// Validate and set doctor name
 			String doctorName = request.getParameter("dName");
 			System.out.println("Doctor name: " + doctorName);
 			if (doctorName == null || doctorName.trim().isEmpty()) {
@@ -46,7 +41,6 @@ public class AdminController {
 			}
 			doctor.setDoctorName(doctorName);
 			
-			// Validate and set doctor age
 			try {
 				String ageStr = request.getParameter("dAge");
 				System.out.println("Doctor age (string): " + ageStr);
@@ -59,7 +53,6 @@ public class AdminController {
 				throw new IllegalArgumentException("Doctor age must be a valid number");
 			}
 			
-			// Validate and set doctor gender
 			String doctorGender = request.getParameter("dGender");
 			System.out.println("Doctor gender: " + doctorGender);
 			if (doctorGender == null || doctorGender.trim().isEmpty()) {
@@ -67,7 +60,6 @@ public class AdminController {
 			}
 			doctor.setDoctorGender(doctorGender);
 			
-			// Validate and set doctor experience
 			try {
 				String expStr = request.getParameter("dExperience");
 				System.out.println("Doctor experience (string): " + expStr);
@@ -80,7 +72,6 @@ public class AdminController {
 				throw new IllegalArgumentException("Doctor experience must be a valid number");
 			}
 			
-			// Validate and set doctor contact
 			String doctorContact = request.getParameter("dContact");
 			System.out.println("Doctor contact: " + doctorContact);
 			if (doctorContact == null || doctorContact.trim().isEmpty() || !doctorContact.matches("\\d{10}")) {
@@ -88,7 +79,6 @@ public class AdminController {
 			}
 			doctor.setDoctorContact(doctorContact);
 			
-			// Validate and set doctor address
 			String doctorAddress = request.getParameter("dAddress");
 			System.out.println("Doctor address: " + doctorAddress);
 			if (doctorAddress == null || doctorAddress.trim().isEmpty()) {
@@ -96,7 +86,6 @@ public class AdminController {
 			}
 			doctor.setDoctorAddress(doctorAddress);
 			
-			// Validate and set doctor department
 			String doctorDepartment = request.getParameter("dDepartment");
 			System.out.println("Doctor department: " + doctorDepartment);
 			if (doctorDepartment == null || doctorDepartment.trim().isEmpty()) {
@@ -104,7 +93,6 @@ public class AdminController {
 			}
 			doctor.setDoctorDepartment(doctorDepartment);
 			
-			// Register the doctor
 			System.out.println("Calling adminService.registerDoctorToDatabase...");
 			boolean result = adminService.registerDoctorToDatabase(doctor);
 			System.out.println("Registration result: " + result);
@@ -127,9 +115,7 @@ public class AdminController {
 		modelAndView.setViewName("Output");
 		return modelAndView;
 	}
-	
-//  Remove Doctor
-	
+		
 	@ModelAttribute("doctorIds")
 	public List<String> getAllDoctorIds(){
 		List<Doctor> doctorList = adminService.getAllDoctor();
@@ -178,7 +164,6 @@ public class AdminController {
 		modelAndView.setViewName("Output");
 		return modelAndView;
 	}
-//Show All Doctors	
 	@RequestMapping("/showAllDoctors")
 	public ModelAndView showAllDoctors() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -199,9 +184,7 @@ public class AdminController {
 		}
 	}
 	
-	
-//Remove Patient
-	
+		
 	@ModelAttribute("patientIds")
 	public List<String> getAllPatientIds(){
 		List<Patient> patientList = adminService.getAllPatient();
@@ -252,7 +235,6 @@ public class AdminController {
 	
 	
 	
-//Show All Patients	
 	@RequestMapping("/showAllPatients")
 	public ModelAndView showAllPatients() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -273,7 +255,6 @@ public class AdminController {
 		}
 	}
 	
-//  Admin Functionalities End ------------------------------------------------------------------------------------------------------------------------
 	
 	
 
